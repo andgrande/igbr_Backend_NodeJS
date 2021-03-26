@@ -20,6 +20,39 @@ export default class ClassController {
     return response.json(retrievedClasses);
   }
 
+  public async listClassDetails(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { id } = request.params;
+    // const { class_day, class_hour, class_level }: ClassDTO = request.body;
+
+    const listClassService = new ListClassService();
+    const retrievedClasses = await listClassService.execute({
+      class_day,
+      class_hour,
+      class_level,
+    });
+
+    return response.json(retrievedClasses);
+  }
+
+  public async listClassTimetable(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { class_day, class_hour, class_level }: ClassDTO = request.body;
+
+    const listClassService = new ListClassService();
+    const retrievedClasses = await listClassService.execute({
+      class_day,
+      class_hour,
+      class_level,
+    });
+
+    return response.json(retrievedClasses);
+  }
+
   public async create(request: Request, response: Response): Promise<Response> {
     const {
       class_day,

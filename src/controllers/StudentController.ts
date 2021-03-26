@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import CreateStudentService from '../services/Students/CreateStudentService';
 import ListStudentService from '../services/Students/ListStudentsService';
 import UpdateStudentClassService from '../services/Students/UpdateStudentClassService';
+import UpdateStudentPresenceAndHomeworkService from '../services/Students/UpdateStudentPresenceAndHomeworkService';
 import { StudentDTO, StudentNameDTO } from '../dtos/StudentDTO';
 
 export default class StudentController {
@@ -67,15 +68,24 @@ export default class StudentController {
     return response.json(updatedStudent);
   }
 
-  // public async update(request: Request, response: Response): Promise<Response> {
-  //   const { id } = request.params;
-  //   const { class_id } = request.body;
+  public async updateStudentActivities(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { id } = request.params;
+    const { class_id, student_presence, student_homework, date } = request.body;
 
-  //   const updateStudentClassService = new UpdateStudentClassService();
-  //   const updatedStudent = await updateStudentClassService.execute(id, {
-  //     class_id,
-  //   });
+    const updateStudentPresenceAndHomeworkService = new UpdateStudentPresenceAndHomeworkService();
+    const updatedStudent = await updateStudentPresenceAndHomeworkService.execute(
+      id,
+      {
+        class_id,
+        student_presence,
+        student_homework,
+        date,
+      },
+    );
 
-  //   return response.json(updatedStudent);
-  // }
+    return response.json(updatedStudent);
+  }
 }

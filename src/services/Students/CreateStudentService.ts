@@ -77,8 +77,8 @@ class CreateStudentsService {
           ...timetable.students_presence,
           [newStudent.id]: {
             name: newStudent.full_name,
-            present: false,
-            homework: true,
+            present: null,
+            homework: null,
             status: 'active',
           },
         };

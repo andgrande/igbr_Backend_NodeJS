@@ -20,3 +20,11 @@ export interface TimetableStudentDetailDTO {
     status?: string;
   };
 }
+
+export interface UpdateTimetableDTO {
+  class_id: string;
+  class_status?: string;
+  student_presence: boolean;
+  student_homework?: boolean;
+  date: string;
+}

@@ -45,6 +45,17 @@ class ClassesRepository extends Repository<Classes_x_Students> {
     return retrievedClasses_x_Students || null;
   }
 
+  public async findByClassAndStudent(
+    class_id: string,
+    student_id: string,
+  ): Promise<Classes_x_Students[]> {
+    const retrievedClasses_x_Students = await this.find({
+      where: { class_id, student_id },
+    });
+
+    return retrievedClasses_x_Students || null;
+  }
+
   // create update method
 }
 

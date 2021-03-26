@@ -7,7 +7,6 @@ import ClassesTimetable from '../../repositories/ClassesTimetableRepository';
 import formatName from '../../utils/formatName';
 
 import { StudentDTO } from '../../dtos/StudentDTO';
-import { TimetableStudentDetailDTO } from '../../dtos/ClassTimetableDTO';
 
 class UpdateStudentClassService {
   public async execute(
@@ -27,8 +26,6 @@ class UpdateStudentClassService {
       const classesStudents = getRepository(Classes_x_Students);
       const classesTimetableRepository = getCustomRepository(ClassesTimetable);
 
-      const thisOb: TimetableStudentDetailDTO = {};
-
       const studentRegister = await studentRepository.findOne({ id });
 
       if (!studentRegister) {
@@ -44,8 +41,6 @@ class UpdateStudentClassService {
         if (!retrievedClass) {
           throw new Error('Invalid Class ID');
         }
-
-        // studentRegister.class_id = retrievedClass.id;
 
         const retrievedClassStudentRelation = await classesStudents.findOne({
           where: {
@@ -75,8 +70,6 @@ class UpdateStudentClassService {
           studentRegister.class_id,
         );
 
-        // console.log(oldClassTimetable);
-
         const oldClassUpdatedTimetable = oldClassTimetable.map(timetable => {
           const updatedStatus = {
             ...timetable.students_presence,
@@ -86,11 +79,6 @@ class UpdateStudentClassService {
 
           Object.keys(updatedStatus).forEach(key => {
             if (key === studentIdStrig) {
-              console.log('key');
-              console.log(key);
-              console.log('updatedStatus[key]');
-              console.log(updatedStatus[key]);
-
               Object.defineProperty(updatedStatus[key], 'status', {
                 value: 'inactive',
               });
@@ -152,32 +140,6 @@ class UpdateStudentClassService {
       studentRegister.address = address || studentRegister.address;
 
       await studentRepository.save(studentRegister);
-
-      // call Timetable Rep
-      // retrieve the array of timetables
-      // update future timetables for this student
-      // save it
-
-      // const tt = { ...timetable.students_presence };
-
-      // timetable.students_presence = {
-      //   id: 'x',
-      //   name: 'xon',
-      //   age: 123,
-      // };
-      // console.log(tt);
-
-      // if (tt.id === newStudent.id) {
-      //   Object.keys(tt).forEach(key => {
-      //     console.log(key);
-      //     if (tt[key] !== 'x') {
-      //       // console.log((tt.name = 'bla'));
-      //     }
-      //   });
-      // }
-
-      // console.log(newT);
-      // console.log(newT.map(ii => ii.students_presence));
 
       return studentRegister || null;
     } catch (err) {

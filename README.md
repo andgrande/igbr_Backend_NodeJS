@@ -106,23 +106,34 @@ students
         - [x] Filter by hour
         - [x] Filter by level
         - [ ] Filter by teacher
-    - [ ] GET /classes/:class_id - listar turma específica
+    - [ ] GET /classes/:id/details - listar turma específica
     - [ ] GET /classes/timetable - listar turmas por horários
+        - [ ] Filter by Class
 
 - [x] Relations tabela timetable
 - [x] Save object in timetable
-- [ ] Include students in timetable onde they are assigned to a class
-- [ ] Remove students from timetable onde they are assigned to a different class
-
-- [ ]  Marcar presença de alunos
-    - [ ] PATCH /students/:id/set_status
-        - [ ] Enviando class, dia e horário
-
-- [ ]  Marcar se fez lição
-    - [ ] PATCH /students/:id/set_class
-        - [ ] Enviando class e student
-
 - [x] Ao criar entrada na table classes, gerar entrada na classes_timetable para cada aula
+- [x] Ao criar entrada na table classes, gerar entrada individual para cada dia
 
-------------
+- [x] Include students in timetable once they are assigned to a class
+- [x] Update students in timetable to "status: inactive" once they are assigned to a different class
+
+- [x] PATCH /students/:id/set_status
+    - [x]  Marcar presença de alunos
+    - [x]  Marcar se fez lição
+        - [x] Atualizar somente data informado
+        - [ ] Atualizar somente horário informado
+
+
+- [ ] Create Service to inactivate Student
+  > Update Migrations
+  > Student Table
+  > StudentTimatable Table
+  > Any other relation
+
+#------------#
 - Delete class
+- Update Class
+- Upload files
+- Não alterar status da Timetable após a aula ter sido dada
+- Get Students should list Timetable info
