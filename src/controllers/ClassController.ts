@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import CreateClassService from '../services/Classes/CreateClassService';
 import ListClassService from '../services/Classes/ListClassService';
+import ListClassDetailsService from '../services/Classes/ListClassDetailsService';
 import UpdateClassService from '../services/Classes/UpdateClassService';
 
 import ClassDTO from '../dtos/ClassDTO';
@@ -25,14 +26,9 @@ export default class ClassController {
     response: Response,
   ): Promise<Response> {
     const { id } = request.params;
-    // const { class_day, class_hour, class_level }: ClassDTO = request.body;
 
-    const listClassService = new ListClassService();
-    const retrievedClasses = await listClassService.execute({
-      class_day,
-      class_hour,
-      class_level,
-    });
+    const listClassDetailsService = new ListClassDetailsService();
+    const retrievedClasses = await listClassDetailsService.execute(id);
 
     return response.json(retrievedClasses);
   }

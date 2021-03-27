@@ -106,7 +106,7 @@ students
         - [x] Filter by hour
         - [x] Filter by level
         - [ ] Filter by teacher
-    - [ ] GET /classes/:id/details - listar turma específica
+    - [x] GET /classes/:id/details - listar turma específica
     - [ ] GET /classes/timetable - listar turmas por horários
         - [ ] Filter by Class
 
@@ -124,14 +124,23 @@ students
         - [x] Atualizar somente data informado
         - [ ] Atualizar somente horário informado
 
+- [ ] Fix relation between Class x Class_students x Timetable when updating any class details - currently updates are not reflecting other tables
+- [ ] Fix return message for errors
+
+
+
+#------------#
 
 - [ ] Create Service to inactivate Student
-  > Update Migrations
+  > Update Migrations with status column
   > Student Table
   > StudentTimatable Table
   > Any other relation
 
-#------------#
+- [ ] Financial status management
+  > New Financial table
+
+
 - Delete class
 - Update Class
 - Upload files

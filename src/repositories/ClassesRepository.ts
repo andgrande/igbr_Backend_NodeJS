@@ -18,6 +18,14 @@ class ClassesRepository extends Repository<Class> {
     return retrievedClass || null;
   }
 
+  public async getClassDetailsById(id: string): Promise<Class | null> {
+    const retrievedClass = await this.findOne(id, {
+      relations: ['classes_x_students'],
+    });
+
+    return retrievedClass || null;
+  }
+
   public async getUniqueClass({
     class_day,
     class_hour,

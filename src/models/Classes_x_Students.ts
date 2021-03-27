@@ -21,8 +21,8 @@ class Classes_x_Students {
   @JoinColumn({ name: 'student_id' })
   students: Student;
 
-  @ManyToMany(() => Class, classes => classes.classes_x_students)
-  // @JoinColumn({ name: 'class_id' })
+  @ManyToOne(() => Class, classes => classes.classes_x_students)
+  @JoinColumn({ name: 'class_id' })
   classes: Class;
 
   @Column()

@@ -13,7 +13,7 @@ const teacherController = new TeacherController();
 routes.get('/classes', classController.index);
 routes.post('/classes', classController.create); //
 routes.patch('/classes/:id', classController.update);
-routes.get('/classes/:class_id/details', classController.listClassDetails);
+routes.get('/classes/:id/details', classController.listClassDetails);
 routes.get('/classes/timetable/', classController.listClassTimetable);
 
 routes.get('/students', studentsController.index); //

@@ -49,12 +49,14 @@ class UpdateStudentPresenceAndHomeworkService {
         class_id,
       );
 
+      let isDateRegistered = false;
       const updatedClassTimetable = classTimetable.map(timetable => {
         const updatedStatus = {
           ...timetable.students_presence,
         };
 
         if (getDayOfYear(formattedDate) === getDayOfYear(timetable.date)) {
+          isDateRegistered = true;
           const studentIdStrig = studentRegister.id.toString();
 
           Object.keys(updatedStatus).forEach(key => {
@@ -81,6 +83,12 @@ class UpdateStudentPresenceAndHomeworkService {
 
         return updatedTimetable;
       });
+
+      if (!isDateRegistered) {
+        throw new Error(
+          'Provided date is not registered for this class / student',
+        );
+      }
 
       await classesTimetableRepository.updateTimetable(updatedClassTimetable);
 
