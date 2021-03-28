@@ -1,5 +1,5 @@
 import { getCustomRepository } from 'typeorm';
-import { parseISO, getDayOfYear } from 'date-fns';
+import { parseISO, getDayOfYear, parse } from 'date-fns';
 import ClassesTimetable from '../../models/ClassesTimetable';
 
 import StudentRepository from '../../repositories/StudentsRepository';

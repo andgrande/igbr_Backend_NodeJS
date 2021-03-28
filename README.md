@@ -73,9 +73,6 @@ students
 
 # Main checklist:
 
-- [ ] Criar entity Teachertimetable
-    - [ ] 1 teacher por horário
-
 - [x]  Criar turmas
     - [x] POST /classes
         - [x] Link com a tabela Teachers
@@ -108,8 +105,8 @@ students
         - [ ] Filter by teacher
     - [x] GET /classes/:id/details
         - [x] deve listar turma específica
-        - [ ] deve listar timetable como horários (se a relation entre tabelas não trouxer os dados, tentar criar relation ou então fazer consulta no DB)
-        - [ ] deve conter informações de status, homework e presença [daqui será possível alterar no frontend]
+        - [x] deve listar timetable como horários
+        - [x] deve conter informações de status, homework e presença [daqui será possível alterar no frontend]
 
 - [x] Relations tabela timetable
 - [x] Save object in timetable
@@ -123,7 +120,7 @@ students
     - [x]  Marcar presença de alunos
     - [x]  Marcar se fez lição
         - [x] Atualizar somente data informado
-        - [ ] Atualizar somente horário informado - corrigindo timezone
+        - [ ] Atualizar somente horário informado (atualmente aceita qualquer horário) - corrigindo timezone
 
 - [ ] Fix relation between Class x Class_students x Timetable "when updating any class details" - currently updates are not reflecting other tables
 - [ ] Fix return message for errors
@@ -137,6 +134,9 @@ students
   > Student Table
   > StudentTimatable Table
   > Any other relation
+
+- [ ] Criar entity Teachertimetable
+  > 1 teacher por horário
 
 - [ ] Financial status management
   > New Financial table

@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import Classes from './Class';
+import Class from './Class';
 
 @Entity('classes_timetable')
 class ClassesTimetable {
@@ -18,9 +18,9 @@ class ClassesTimetable {
   @Column()
   class_id: string;
 
-  @ManyToOne(() => Classes, classes => classes.classesTimetable)
+  @ManyToOne(() => Class, classes => classes.classesTimetable)
   @JoinColumn({ name: 'class_id' })
-  classes: Classes;
+  classes: Class;
 
   @Column()
   class_status: string;

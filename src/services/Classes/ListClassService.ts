@@ -23,7 +23,7 @@ class ListClassService {
             {
               class_day: ILike(`%${class_day}%`),
               class_level: ILike(`%${class_level}%`),
-              // class_teacher: ILike(`%${class_teacher}%`),
+              // teacher_id: ILike(`%${teacher_id}%`),
             },
           ],
         });
@@ -34,7 +34,7 @@ class ListClassService {
               class_hour,
               class_day: ILike(`%${class_day}%`),
               class_level: ILike(`%${class_level}%`),
-              // class_teacher: ILike(`%${class_teacher}%`),
+              // teacher_id: ILike(`%${teacher_id}%`),
             },
           ],
         });
