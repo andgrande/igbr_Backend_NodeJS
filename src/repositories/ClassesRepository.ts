@@ -20,7 +20,7 @@ class ClassesRepository extends Repository<Class> {
 
   public async getClassDetailsById(id: string): Promise<Class | null> {
     const retrievedClass = await this.findOne(id, {
-      relations: ['classes_x_students'],
+      relations: ['classes_x_students', 'classes_timetable'],
     });
 
     return retrievedClass || null;

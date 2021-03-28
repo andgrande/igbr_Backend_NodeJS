@@ -106,9 +106,10 @@ students
         - [x] Filter by hour
         - [x] Filter by level
         - [ ] Filter by teacher
-    - [x] GET /classes/:id/details - listar turma específica
-    - [ ] GET /classes/timetable - listar turmas por horários
-        - [ ] Filter by Class
+    - [x] GET /classes/:id/details
+        - [x] deve listar turma específica
+        - [ ] deve listar timetable como horários (se a relation entre tabelas não trouxer os dados, tentar criar relation ou então fazer consulta no DB)
+        - [ ] deve conter informações de status, homework e presença [daqui será possível alterar no frontend]
 
 - [x] Relations tabela timetable
 - [x] Save object in timetable
@@ -122,9 +123,9 @@ students
     - [x]  Marcar presença de alunos
     - [x]  Marcar se fez lição
         - [x] Atualizar somente data informado
-        - [ ] Atualizar somente horário informado
+        - [ ] Atualizar somente horário informado - corrigindo timezone
 
-- [ ] Fix relation between Class x Class_students x Timetable when updating any class details - currently updates are not reflecting other tables
+- [ ] Fix relation between Class x Class_students x Timetable "when updating any class details" - currently updates are not reflecting other tables
 - [ ] Fix return message for errors
 
 
