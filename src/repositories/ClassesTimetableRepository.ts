@@ -18,6 +18,12 @@ interface CreateNewTimetableDTO {
   start_date: Date;
 }
 
+interface IUpdateClassStatusDTO {
+  class_id: string;
+  date?: Date;
+  new_status: 'given' | 'pending';
+}
+
 @EntityRepository(ClassesTimetable)
 class ClassesRepository extends Repository<ClassesTimetable> {
   public async createNewClassTimetable({
@@ -63,6 +69,26 @@ class ClassesRepository extends Repository<ClassesTimetable> {
     classTimetable: ClassesTimetable[],
   ): Promise<void> {
     await this.save(classTimetable);
+  }
+
+  public async updateTimetableClassStatus({
+    class_id,
+    new_status,
+  }: IUpdateClassStatusDTO): Promise<ClassesTimetable> {
+    const updatedTimetable = await this.findOne({
+      where: {
+        class_id,
+      },
+    });
+
+    if (!updatedTimetable) {
+      throw new Error('Error while updating status');
+    }
+    updatedTimetable.class_status = new_status;
+
+    await this.save(updatedTimetable);
+
+    return updatedTimetable;
   }
 }
 

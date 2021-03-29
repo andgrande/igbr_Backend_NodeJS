@@ -123,7 +123,7 @@ students
         - [ ] Atualizar somente horário informado (atualmente aceita qualquer horário) - corrigindo timezone
 
 - [ ] Fix relation between Class x Class_students x Timetable "when updating any class details" - currently updates are not reflecting other tables
-- [ ] Fix return message for errors
+- [!] Fix return message for errors
 
 
 

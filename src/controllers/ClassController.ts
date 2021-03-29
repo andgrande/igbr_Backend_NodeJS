@@ -78,7 +78,10 @@ export default class ClassController {
     return response.json({ createdClass });
   }
 
-  public async update(request: Request, response: Response): Promise<Response> {
+  public async updateTimetableStatus(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
     const { id } = request.params;
     const { body } = request;
 

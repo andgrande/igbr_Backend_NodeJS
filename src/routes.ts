@@ -12,7 +12,7 @@ const teacherController = new TeacherController();
 
 routes.get('/classes', classController.index);
 routes.post('/classes', classController.create); //
-routes.patch('/classes/:id', classController.update);
+routes.patch('/classes/:id/set_status', classController.updateTimetableStatus);
 routes.get('/classes/:id/details', classController.listClassDetails);
 routes.get('/classes/timetable/', classController.listClassTimetable);
 
