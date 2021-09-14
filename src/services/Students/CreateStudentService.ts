@@ -1,4 +1,5 @@
 import { getCustomRepository } from 'typeorm';
+import { hash } from 'bcrypt';
 import StudentRepository from '../../repositories/StudentsRepository';
 import ClassesRepository from '../../repositories/ClassesRepository';
 import ClassesTimetableRepository from '../../repositories/ClassesTimetableRepository';
@@ -19,6 +20,7 @@ class CreateStudentsService {
     CPF,
     CEP,
     address,
+    password,
   }: StudentDTO): Promise<Student> {
     try {
       const studentRepository = getCustomRepository(StudentRepository);
@@ -32,7 +34,7 @@ class CreateStudentsService {
 
       const isEmailExistent = await studentRepository.findByEmail(email);
 
-      if (isEmailExistent.length) {
+      if (isEmailExistent) {
         throw new Error('Email already existent');
       }
 
@@ -48,6 +50,7 @@ class CreateStudentsService {
       const formattedFirstName = formatName(first_name);
       const formattedLastName = formatName(last_name);
 
+      const hashedPass = await hash(password, 8);
       const newStudent = await studentRepository.createNewStudent({
         first_name: formattedFirstName,
         last_name: formattedLastName,
@@ -57,6 +60,7 @@ class CreateStudentsService {
         CPF,
         CEP,
         address,
+        password: hashedPass,
       });
 
       await classesXStudentsRepository.createClasses_x_Students({

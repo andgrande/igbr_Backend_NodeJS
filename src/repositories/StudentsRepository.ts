@@ -11,6 +11,7 @@ interface CreateNewTimetableDTO {
   CPF?: string;
   CEP?: string;
   address?: string;
+  password: string;
 }
 
 @EntityRepository(Student)
@@ -24,6 +25,7 @@ class ClassesRepository extends Repository<Student> {
     CPF,
     CEP,
     address,
+    password,
   }: CreateNewTimetableDTO): Promise<Student> {
     try {
       const newStudent = this.create({
@@ -35,6 +37,7 @@ class ClassesRepository extends Repository<Student> {
         CPF,
         CEP,
         address,
+        password,
       });
 
       const createdStudent = await this.save(newStudent);
@@ -45,8 +48,8 @@ class ClassesRepository extends Repository<Student> {
     }
   }
 
-  public async findByEmail(email: string): Promise<Student[]> {
-    const retrievedStudent = await this.find({ where: { email } });
+  public async findByEmail(email: string): Promise<Student | null> {
+    const retrievedStudent = await this.findOne({ where: { email } });
 
     return retrievedStudent || null;
   }

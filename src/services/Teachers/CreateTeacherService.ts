@@ -1,5 +1,7 @@
-import { getRepository } from 'typeorm';
+import { getCustomRepository } from 'typeorm';
+import { hash } from 'bcrypt';
 import Teacher from '../../models/Teacher';
+import TeacherRepository from '../../repositories/TeachersRepository';
 
 import TeacherDTO from '../../dtos/TeacherDTO';
 
@@ -7,24 +9,26 @@ class CreateTeacherService {
   public async execute({
     teacher_name,
     teacher_email,
+    password,
   }: TeacherDTO): Promise<Teacher> {
     try {
-      const teacherRepository = getRepository(Teacher);
+      const teacherRepository = getCustomRepository(TeacherRepository);
 
-      const isTeacherExistent = await teacherRepository.find({
-        where: { teacher_email },
-      });
+      const isTeacherExistent = await teacherRepository.findByEmail(
+        teacher_email,
+      );
 
-      if (isTeacherExistent.length) {
+      if (isTeacherExistent) {
         throw new Error('Teacher already existent');
       }
 
-      const newTeacher = teacherRepository.create({
+      const hashedPass = await hash(password, 8);
+
+      const newTeacher = await teacherRepository.createNewTeacher({
         teacher_name,
         teacher_email,
+        password: hashedPass,
       });
-
-      await teacherRepository.save(newTeacher);
 
       return newTeacher || null;
     } catch (err) {

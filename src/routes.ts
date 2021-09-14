@@ -17,6 +17,7 @@ routes.get('/classes/:id/details', classController.listClassDetails);
 routes.get('/classes/timetable/', classController.listClassTimetable);
 
 routes.get('/students', studentsController.index); //
+routes.get('/students/sessions', studentsController.authenticateStudent);
 routes.post('/students', studentsController.create); //
 routes.patch('/students/:id', studentsController.updateStudentData);
 routes.patch(
@@ -25,6 +26,7 @@ routes.patch(
 );
 
 routes.get('/teacher', teacherController.index);
+routes.post('/teacher/sessions', teacherController.authenticateTeacher);
 routes.post('/teacher', teacherController.create);
 
 export default routes;

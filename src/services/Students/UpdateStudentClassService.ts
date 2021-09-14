@@ -18,8 +18,9 @@ class UpdateStudentClassService {
       CEP,
       CPF,
       address,
+      password,
     }: Omit<StudentDTO, 'email'>,
-  ): Promise<Student> {
+  ): Promise<Student | Classes_x_Students | null> {
     try {
       const studentRepository = getRepository(Student);
       const classRepository = getRepository(Class);
@@ -33,6 +34,7 @@ class UpdateStudentClassService {
       }
 
       let retrievedClass;
+      let newClassStudentRelation;
       if (class_id) {
         retrievedClass = await classRepository.findOne({
           where: { id: class_id },
@@ -55,7 +57,7 @@ class UpdateStudentClassService {
           });
         }
 
-        const newClassStudentRelation = classesStudents.create({
+        newClassStudentRelation = classesStudents.create({
           teacher_id: retrievedClass.teacher_id,
           teacher_name: retrievedClass.teacher.teacher_name,
           class_name: retrievedClass.class_id,
@@ -102,12 +104,15 @@ class UpdateStudentClassService {
         );
 
         const newClassUpdatedTimetable = newClassTimetable.map(timetable => {
+          const classData: any =
+            timetable.students_presence[studentRegister.id];
+
           const updatedPresence = {
             ...timetable.students_presence,
             [studentRegister.id]: {
               name: studentRegister.full_name,
-              present: false,
-              homework: true,
+              present: classData ? classData.present : false,
+              homework: classData ? classData.homework : false,
               status: 'active',
             },
           };
@@ -138,10 +143,11 @@ class UpdateStudentClassService {
       studentRegister.CPF = CPF || studentRegister.CPF;
       studentRegister.CPF = CEP || studentRegister.CEP;
       studentRegister.address = address || studentRegister.address;
+      studentRegister.password = password || studentRegister.password;
 
       await studentRepository.save(studentRegister);
 
-      return studentRegister || null;
+      return newClassStudentRelation || null;
     } catch (err) {
       throw new Error(err);
     }

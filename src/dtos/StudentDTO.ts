@@ -6,6 +6,7 @@ export interface StudentDTO {
   CPF?: string;
   address?: string;
   CEP?: string;
+  password: string;
 }
 
 export interface StudentNameDTO {

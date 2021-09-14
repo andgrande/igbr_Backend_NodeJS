@@ -85,6 +85,8 @@ students
 
 - [x] Editar turmas - adicionar aluno
     - [x] POST /students
+    - [x] PATCH /classes/set_status
+        - Enable Class status change on timetable
     - [x] PATCH /students/:id
         - [x] class_x_student= classes.id, classes.[relevant_details], students.id, students.name
         - [x] students= students[all], classes.id

@@ -22,6 +22,9 @@ class Teacher {
   @Column()
   teacher_email: string;
 
+  @Column()
+  password: string;
+
   @OneToMany(() => Class, classes => classes.teacher)
   classes: Class[];
 

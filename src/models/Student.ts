@@ -3,10 +3,8 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
   ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -29,6 +27,9 @@ class Student {
 
   @Column()
   email: string;
+
+  @Column()
+  password: string;
 
   @Column()
   class_id: string;
