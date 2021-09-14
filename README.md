@@ -1,114 +1,52 @@
-Perfis
+# igbr backend (Node.js)
 
-- Professor
+Project under development
 
-    Entidade Classes
+## Languages
 
-    - Criar turmas e atribuir alunos
-    - Listar turmas e horários
-    - Marcar presença de alunos
-    - Marcar se fez lição
-    - Comunicados
-    - Uploads
-    - Comentários
-    - [Edit] Aulas gravadas
+- Node.js with Typescript
 
-        Alternativa: Gravar pelo Zoom e fazer upload manual
+## Concepts and technologies applied in this project:
 
-        Acoplar player de video
+- Relational DB (Postgres)
+- Docker containers
+- SOLID principles
+- ORM with typeorm
+- REST API
+- User authentication middleware and requests Data validation to secure APIs
+- Password encryption
 
-    Entidade Recursos
+## Main features
 
-    - [Edit] Materiais de aula
-    - Dicionário
+Some features need to be enhanced
 
-    Entidade Notificações
-
-    - Aviso gravar aulas
-    - [Edit] Calendário de aulas
-    - Due date Lição de casa
-
-- Aluno
-
-    Entidade Classes
-
-    - Comentários
-    - [View] Aulas gravadas
-
-    Entidade Aluno
-
-    - Barra de progresso
-    - Pedido gravação de aula
-
-    Entidade Recursos
-
-    - [View] Materiais de aula
-    - Dicionário
-
-    Entidade Notificações
-
-    - Pagamento: Chegando data, chegar na data, atrasado
-    - [View] Calendário de aulas
-    - Due date Lição de casa
-
-Tabela **classes**:
-
-CLASS_ID - unique
-
-Tabela **students**:
-
-student_id - unique
-
-Tabela **classes_timetable**:
-
-CLASS_APPOINTMENT_ID - unique
-
-CLASS_ID
-
-day
-
-hour
-
-students
-
-# Main checklist:
-
-- [x]  Criar turmas
-    - [x] POST /classes
-        - [x] Link com a tabela Teachers
-
-- [x]  Editar turmas
-    - [x] PATCH /classes/:id
-        - [x] class_id atualizado automatico se necessário
-        - [x] todos campos opcionais
-        - [x] Link com a tabela Teachers
-
-- [x] Editar turmas - adicionar aluno
-    - [x] POST /students
-    - [x] PATCH /classes/set_status
-        - Enable Class status change on timetable
+- [x] Create Class
+  - [x] Relation with table "Teachers"
+- [x] Update Class
+  - [x] class_id automatically generated
+- [x] Update classes
+  - [x] Add student
+  - [x] Enable Class status change on timetable
     - [x] PATCH /students/:id
-        - [x] class_x_student= classes.id, classes.[relevant_details], students.id, students.name
-        - [x] students= students[all], classes.id
 
-- [x]  Aluno
-    - [ ] GET /students
-        - [x] Filter by name
-        - [ ] Filter by class
-        - [ ] Filter by teacher
-    - [x] POST /student
-    - [x] PATCH /student/:id/class
+- [x] Student
+  - [ ] GET /students
+    - [x] Filter by name
+    - [ ] Filter by class
+    - [ ] Filter by teacher
+  - [x] POST /student
+  - [x] PATCH /student/:id/class
 
-- [x]  Listar turmas e horários
-    - [x] GET /classes - listar todas turmas com horários e alunos - filtros em dia, hora, teacher, level
-        - [x] Filter by dia
-        - [x] Filter by hour
-        - [x] Filter by level
-        - [ ] Filter by teacher
-    - [x] GET /classes/:id/details
-        - [x] deve listar turma específica
-        - [x] deve listar timetable como horários
-        - [x] deve conter informações de status, homework e presença [daqui será possível alterar no frontend]
+- [x]  Listar classes and timetable
+  - [x] GET /classes - listar todas turmas com horários e alunos - filtros em dia, hora, teacher, level
+    - [x] Filter by day
+    - [x] Filter by hour
+    - [x] Filter by level
+    - [ ] Filter by teacher
+  - [x] GET /classes/:id/details
+    - [x] deve listar turma específica
+    - [x] deve listar timetable como horários
+    - [x] deve conter informações de status, homework e presença [daqui será possível alterar no frontend]
 
 - [x] Relations tabela timetable
 - [x] Save object in timetable
@@ -125,27 +63,37 @@ students
         - [ ] Atualizar somente horário informado (atualmente aceita qualquer horário) - corrigindo timezone
 
 - [ ] Fix relation between Class x Class_students x Timetable "when updating any class details" - currently updates are not reflecting other tables
-- [!] Fix return message for errors
+- [ ] Fix return message for errors
 
 
-
-#------------#
+## Pending features
 
 - [ ] Create Service to inactivate Student
+  > Map effects on Student Table and StudentTimatable Table and Any other relation\
   > Update Migrations with status column
-  > Student Table
-  > StudentTimatable Table
-  > Any other relation
-
-- [ ] Criar entity Teachertimetable
-  > 1 teacher por horário
-
-- [ ] Financial status management
-  > New Financial table
+- [ ] Create entity TeacherTimetable
+  > 1 teacher / hour
+- [ ] Students financial status management
+  - [ ]  Payment due date notifications
+- [ ] Delete and Update (including the upload of files) class details
+- [ ] Update GET Students to list Timetable info
+- [ ] Create calendar on Student overview with all classes
 
 
-- Delete class
-- Update Class
-- Upload files
-- Não alterar status da Timetable após a aula ter sido dada
-- Get Students should list Timetable info
+## List of services
+
+| Name | Type | Description | Endpoint |
+| ------------------- | ------------------- | ------------------- | ------------------- |
+|  Teachers | `POST` | Create teacher | `hostURL`/teacher |
+|  Teachers | `POST` | Authenticate teacher | `hostURL`/teacher/sessions |
+|  Teachers | `GET` | List teachers | `hostURL`/teacher |
+|  Classes | `POST` | Create Class | `hostURL`/classes |
+|  Classes | `PATCH` | Update Class Timetable Status | `hostURL`/classes/`:id`/set_status |
+|  Classes | `GET` | List classes | `hostURL`/classes |
+|  Classes | `GET` | Class Details | `hostURL`/classes/`:id`/details |
+|  Students | `GET` | List students | `hostURL`/students |
+|  Students | `PATCH` | Update Student Data | `hostURL`/students/`:id` |
+|  Students | `PATCH` | Update Student Class Info | `hostURL`/students/`:id`/set_status |
+|  Students | `POST` | Authenticate Student | `hostURL`/students/sessions |
+|  Students | `POST` | Create student | `hostURL`/students |
+
