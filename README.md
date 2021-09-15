@@ -8,7 +8,7 @@ Project under development
 
 ## Concepts and technologies applied in this project:
 
-- Relational DB (Postgres)
+- Relational DB (PostgreSQL)
 - Docker containers
 - MVC principles
 - ORM with typeorm
