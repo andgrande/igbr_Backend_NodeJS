@@ -10,7 +10,7 @@ Project under development
 
 - Relational DB (Postgres)
 - Docker containers
-- SOLID principles
+- MVC principles
 - ORM with typeorm
 - REST API
 - User authentication middleware and requests Data validation to secure APIs
